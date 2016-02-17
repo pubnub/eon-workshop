@@ -5,7 +5,23 @@
     <title>Exercise 1</title>
     <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
     <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
-
+    <style type="text/css">
+        html, body { margin: 0; }
+        #chart {
+            position: absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+        }
+        .c3 svg {
+            font: bold 20px sans-serif;
+        }
+        .c3-chart-line path {
+            stroke-width: 10px;
+            stroke-linecap: round;
+        }
+    </style>
 </head>
 <body>
 
@@ -37,9 +53,47 @@ eon.chart({
     channel: "josh_hello_world_5",
     generate: {
         bindto: '#chart',
+        data: {
+            type:'spline',
+            colors: {
+                value0:'#ffaaaa',
+                value1:'#cc8888',
+                value2:'#aa4444',
+                value3:'#882222',
+                value4:'#660000'
+            },
+            names: {
+                value0: "SFO",
+                value1: "DFW",
+                value2: "ATL",
+                value3: "BOS",
+                value4: "LAX"
+            }
+        },
+        point: {
+            show: false
+        },
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%H:%m:%S'
+                }
+            },
+            y: {
+                label: {
+                    text: 'Temperature',
+                    position: 'outer-middle'
+                }
+            }
+        },
+        tooltip: {
+            show: false
+        }
     },
     history:true,
-    pubnub: pubnub
+    pubnub: pubnub,
+    limit: 30,
 });
 
 </script>
