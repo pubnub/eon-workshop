@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 1</title>
+    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+
+</head>
+<body>
+
+<div id="chart"></div>
+<script type="text/javascript">
+/*
+ //basic chart: graph 1: fake temp sensors
+ //setup page
+ use transform function to turn data into what eon needs
+ //use history to get old data
+ //now add three more sensors to the same chart
+ customize the line style with CSS
+ turn on splines
+ now switch to area chart (not that useful for this data, but it’s easy to do)
+ swap the x/y axes
+ format the x axis labels to say something like last min, last 5 min instead of timestamps
+ add an optional Y value to for ‘normal ranges’ with nice colors
+ change the size of the chart to fill the screen
+ hide the points
+ */
+
+var pubnub = PUBNUB.init({
+    ssl           : true,  // <- enable TLS Tunneling over TCP
+    publish_key   : "demo",
+    subscribe_key : "demo"
+});
+
+eon.chart({
+    channel: "josh_hello_world_5",
+    generate: {
+        bindto: '#chart',
+    },
+    history:true,
+    pubnub: pubnub
+});
+
+</script>
+
+</body>
+</html>
