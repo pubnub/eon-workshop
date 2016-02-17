@@ -17,7 +17,7 @@ var numbers = [100,100,100,100,100];
 function publish() {
     var message = { eon: {}};
     for(var i=0; i<numbers.length; i++) {
-        numbers[i] += Math.random();
+        numbers[i] += (Math.random() - 0.5);
         message.eon["value"+i] = numbers[i];
     }
 

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson 2</title>
+    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+    <style type="text/css">
+        html, body { margin: 0; padding:0 }
+        #chart {
+            position: absolute;
+            top:25%;
+            bottom:25%;
+            height: 50%;
+            left:0;
+            right:0;
+            display: flex;
+        }
+        #temp, #light, #pot {
+            flex: 1;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chart">
+    <div id="light"></div>
+    <div id="temp"></div>
+    <div id="pot"></div>
+</div>
+<script type="text/javascript">
+    var pubnub = PUBNUB.init({
+        ssl           : true,  // <- enable TLS Tunneling over TCP
+        publish_key   : "demo",
+        subscribe_key : "demo"
+    });
+    eon.chart({
+        channel: "fake_device",
+        generate: {
+            bindto: '#light',
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%H:%m:%S'
+                    },
+                    label: {
+                        text: "Light over time"
+                    }
+                },
+                y: {
+                    label: {
+                        text: "Lumens",
+                        position: 'outer-middle'
+                    }
+                }
+            }
+        },
+        //history:true,
+        pubnub: pubnub,
+        limit: 30,
+        transform: function(m) {
+            return { eon: {
+                light: m.eon.light
+            }}
+        }
+    });
+    function FtoC(f) {
+        return (f-32)* (5/9);
+    }
+    eon.chart({
+        channel: "fake_device",
+        generate: {
+            bindto: '#temp',
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%H:%m:%S'
+                    },
+                    label: {
+                        text: "Temperature over time",
+                    }
+                },
+                y: {
+                    label: {
+                        text: "Celsius",
+                        position: 'outer-middle'
+                    }
+                }
+            }
+        },
+        //history:true,
+        pubnub: pubnub,
+        limit: 30,
+        transform: function(m) {
+            return { eon: {
+                temp: FtoC(m.eon.temperature)
+            }}
+        }
+    });
+
+    eon.chart({
+        channel: "fake_device",
+        generate: {
+            bindto: '#pot',
+            data: {
+                type:'gauge'
+            },
+            gauge: {
+                min: -10,
+                max: 10,
+                units: 'position'
+            }
+        },
+        pubnub: pubnub,
+        transform: function(m) {
+            return { eon: {
+                pot: m.eon.potentiometer
+            }}
+        }
+    });
+
+</script>
+</body>
+</html>
