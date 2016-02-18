@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 1</title>
+    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+    <style type="text/css">
+        html, body { margin: 0; }
+        #map {
+            position: absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+<script type="text/javascript">
+    var pubnub = PUBNUB.init({
+        ssl           : true,  // <- enable TLS Tunneling over TCP
+        publish_key   : "demo",
+        subscribe_key : "demo"
+    });
+
+    var points = [
+        {"latlng":[31,-99]},
+        {"latlng":[31,-100]},
+        {"latlng":[32,-100]},
+        {"latlng":[32,-99]}
+    ];
+    var count = -1;
+    setInterval(function(){
+        count = count + 1;
+        if(count >= points.length) count = 0;
+        console.log("publishing", points[count])
+        PUBNUB.publish({
+            channel:  'eon-map',
+            message: [ points[count] ]
+        });
+    }, 3000);
+
+
+    L.RotatedMarker = L.Marker.extend({
+        options: { angle: 0 },
+        _setPos: function(pos) {
+            L.Marker.prototype._setPos.call(this, pos);
+            this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
+        }
+    });
+
+    var map = eon.map({
+        id: 'map',
+        mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+        mb_id: 'ianjennings.l896mh2e',
+        channel: 'eon-map',
+        pubnub: pubnub,
+        rotate: true,
+        message: function (data) {
+            map.setView(data[0].latlng, 8); //9 is the zoom level
+        },
+        marker: function (latlng, data) {
+            var marker = new L.RotatedMarker(latlng, {
+                icon: L.icon({
+                    iconUrl: 'https://www.mapbox.com/maki/renders/airport-24@2x.png',
+                    iconSize: [24, 24]
+                })
+            });
+            return marker;
+        }
+    });
+
+</script>
+
+</body>
