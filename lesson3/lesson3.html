@@ -53,6 +53,7 @@
         }
     });
 
+    var polyline = L.polyline([], {color:'red', fillColor:'red'});
     var map = eon.map({
         id: 'map',
         mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
@@ -61,7 +62,8 @@
         pubnub: pubnub,
         rotate: true,
         message: function (data) {
-            map.setView(data[0].latlng, 8); //9 is the zoom level
+            //map.setView(data[0].latlng, 8); //9 is the zoom level
+            //polyline.addLatLng(data[0].latlng);
         },
         marker: function (latlng, data) {
             var marker = new L.RotatedMarker(latlng, {
@@ -73,6 +75,27 @@
             return marker;
         }
     });
+    polyline.addTo(map);
+
+
+    var circle_options = {
+        color: '#fff',      // Stroke color
+        opacity: 1,         // Stroke opacity
+        weight: 10,         // Stroke weight
+        fillColor: '#000',  // Fill color
+        fillOpacity: 0.6    // Fill opacity
+    };
+
+    //map.setView([38.89399, -77.03659], 17);
+
+    //var circle_one = L.circle([38.89415, -77.03738], 20, circle_options).addTo(map);
+    //polyline = L.polyline([[31,-99],[31,-100],[32,-100]], {color:'red', fillColor:'red'}).addTo(map);
+    /*
+    points.map(function(l) {
+        console.log(l);
+        return L.latLng(l.latlng[0], l.latlng[1]);
+    }
+    */
 
 </script>
 
