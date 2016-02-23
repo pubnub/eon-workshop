@@ -4,13 +4,12 @@
 
 In this lesson we will build a set of three charts that will connect to real world
 sensors.  We have three sensors: a temperature sensor, a light sensor, and a potentiometer
-(volume knob). In this lession we would build a new webpage that can graph all
-three.  We have created a stream which will give you fake sensor data.
+(volume knob). We have created a stream which will give you fake sensor data.
 After you complete the lesson you can switch to the real device up front.
 
 Create a new HTML file with the same boiler plate as before, but with a few additions.
 
-```
+``` html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +66,7 @@ though they don't have charts yet. It should look like this:
 Now add the first chart for the light sensor. This will be a simple line chart
 like you created in the previous lesson:
 
-```
+``` javascript
     eon.chart({
         channel: "fake_device",
         generate: {
@@ -87,7 +86,7 @@ problem. We only want the light data. To fix this we need to modify
 the points as they come in.  We can do that with a `transform` function. The following
 function creates a new data point containing just the part we want.
 
-```
+``` javascript
     transform: function(m) {
         return {
             eon: {
@@ -107,7 +106,7 @@ Now it looks right.
 
 For the temp sensor we want the same thing, a line chart showing the values over time. It looks like this:
 
-```
+``` javascript
     eon.chart({
         channel: "fake_device",
         generate: {
@@ -292,19 +291,6 @@ remember to take out the blue border from the CSS.
 Now, you can try using real data by switching to the PubNub stream `real_device`.  Then come up
 to the front of the class and try moving the real sensors to see the values change on your computer.
 
-
 [screenshot of sensor board]
 
 That's the end of lesson 2.
-
-
-
-
-* build the light sensor
-* position on the left
-* build the temp sensor
-* position in the middle
-* it's in farenheit but we want this in celsius, so let's implement a transform function
-* build the gague
-* we don't care about the history, just the current value. let's use a gauge.
-* set gague colors
