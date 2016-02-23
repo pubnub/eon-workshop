@@ -195,7 +195,7 @@ before you look at the answer below.  See if you can make it look like this. And
 remember to take out the blue border from the CSS.
 
 
-![chart 2](images/chart2.png)
+![chart 2](images/final_chart.png)
 
 # Answer
 
