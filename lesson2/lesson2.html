@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>lesson 2</title>
-    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+    <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
     <style type="text/css">
         html, body { margin: 0; padding:0 }
         #chart {
@@ -19,6 +19,7 @@
         #temp, #light, #pot {
             flex: 1;
             margin: 20px;
+            /* border: 1px solid blue; */
         }
     </style>
 </head>
@@ -29,6 +30,7 @@
     <div id="temp"></div>
     <div id="pot"></div>
 </div>
+
 <script type="text/javascript">
     var pubnub = PUBNUB.init({
         ssl           : true,  // <- enable TLS Tunneling over TCP
@@ -121,7 +123,6 @@
             }}
         }
     });
-
 </script>
 </body>
 </html>
