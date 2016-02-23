@@ -244,14 +244,13 @@ To access the real flight data, change the publish and subscribe keys to the one
 ``` javascript
 var pubnub = PUBNUB.init({
     ssl           : true,  // <- enable TLS Tunneling over TCP
-    publish_key: 'pub-c-923938f1-a4c1-4253-b15a-9c24087904c9',
     subscribe_key: 'sub-c-bd9ab0d6-6e02-11e5-8d3b-0619f8945a4f',
 });
 ```
 
 And change the channel to `sfo-flight-data` and update the `map_id`.
 
-```
+``` javascript
 var map = eon.map({
     id: 'map',
     mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
@@ -272,7 +271,7 @@ which we can make *look* different, but it doesn't know how to *rotate*
 to follow the path of the plane.  Fortunately we can easily extend
 the standard marker like this:
 
-```javascript
+``` javascript
     L.RotatedMarker = L.Marker.extend({
         options: { angle: 0 },
         _setPos: function(pos) {

@@ -28,6 +28,7 @@
         // subscribe_key : "demo"
     });
 
+    /*
     var points = [
         {"latlng":[31,-99]},
         {"latlng":[31,-100]},
@@ -35,7 +36,6 @@
         {"latlng":[32,-99]}
     ];
     var count = -1;
-    /*
     setInterval(function(){
         count = count + 1;
         if(count >= points.length) count = 0;
@@ -60,10 +60,8 @@
         id: 'map',
         mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
         mb_id: 'ianjennings.l896mh2e',
-        // channel: 'eon-map',
         channel : "iss-pubnub",
         pubnub: pubnub,
-        //rotate: true,
 
         //iss
         transform: function(m) {
@@ -78,33 +76,9 @@
         message: function (data) {
           map.setView(data.iss.latlng,3);
           polyline.addLatLng(data.iss.latlng);
-          //map.setView(ll, 8);
-            //map.setView(data[0].latlng, 8); //9 is the zoom level
-            //polyline.addLatLng(data[0].latlng);
-            //polyline.addLatLng(ll);
         },
-        /*
-        marker: function (latlng, data) {
-            var marker = new L.RotatedMarker(latlng, {
-                icon: L.icon({
-                    iconUrl: 'https://www.mapbox.com/maki/renders/airport-24@2x.png',
-                    iconSize: [24, 24]
-                })
-            });
-            return marker;
-        }*/
     });
     polyline.addTo(map);
-
-    //map.setView([38.89399, -77.03659], 17);
-    //polyline = L.polyline([[31,-99],[31,-100],[32,-100]], {color:'red', fillColor:'red'}).addTo(map);
-    /*
-    points.map(function(l) {
-        console.log(l);
-        return L.latLng(l.latlng[0], l.latlng[1]);
-    }
-    */
-
 </script>
 
 </body>
