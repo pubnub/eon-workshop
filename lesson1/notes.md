@@ -5,7 +5,7 @@ Let's start by building a simple line chart.  First, create a new HTML
 file and add this to it.
 
 
-```
+``` html
 <html>
 <head>
 <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
@@ -20,33 +20,32 @@ This is just an empty webpage that imports the EON Javascript and CSS.
 Now create a div to hold the chart in the middle inside the `body`
 element. Set the `id` to `chart`.
 
-```
+``` html
 <div id="chart"></div>
 ```
 
 
 Then create a new script section with this code
 
-```
+``` html
 <script type="text/javascript">
 var pubnub = PUBNUB.init({
     ssl           : true,  // <- enable TLS Tunneling over TCP
-    publish_key   : "demo",
-    subscribe_key : "demo"
+    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
 });
 </script>
 ```
 
 I've set up an existing PubNub channel which sends out a
 randomly changing number every three seconds. You
-can subscribe to it with the subscribe_key of `asdfasdf`.
+can subscribe to it with the subscribe_key of `sub-c-d784e128-da7d-11e5-9511-0619f8945a4f`.
 
 Now we can setup a simple chart like this:
 
-```
+``` javascript
 //after the pubnub
 eon.chart({
-    channel: "josh_hello_world",
+    channel: "random1",
     generate: {
         bindto: '#chart',
     },
@@ -65,9 +64,9 @@ The data shows up immediately but the chart looks empty. This is because
 it doesn't have any data points from before you loaded the page. If you load the page again you'll
 again lose the old data. To fix this lets use history.  Set the history option to true.
 
-```
+``` javascript
 eon.chart({
-    channel: "josh_hello_world_1",
+    channel: "random1",
     generate: {
         bindto: '#chart',
     },
@@ -82,8 +81,7 @@ It's that easy. If the stream is set up to support history (which this one is) t
 ![simple chart](images/simple_chart_1.png)
 
 Now lets try showing multiple datasets at once.  I've set up a second stream which generates three sets
-of test data.  Just change the channel to
-`josh_hello_world_5`.
+of test data.  Just change the channel to `random5`.
 Eon will automatically adapt to receiving 5 data points instead of 1.
 
 ![five data points](images/simple_chart_5.png)
@@ -104,7 +102,7 @@ five minutes. Then we can start seeing trends.
 
 Changing the item count is easy. Set the 'limit' property to a higher number.
 
-```
+``` javascript
     history:true,
     pubnub: pubnub,    
     limit: 100,
@@ -119,9 +117,9 @@ We don't need to know the full date, just the current time. We can reformat thes
 defining a custom x axis.  We also want a label for the Y axis saying that this is temperature.  We can make
 both of these changes by creating an `axis` parameter like this.
 
-```
+``` javascript
 eon.chart({
-    channel: "josh_hello_world_5",
+    channel: "random5",
     generate: {
         bindto: '#chart',
         axis: {
@@ -162,7 +160,7 @@ DIV, so we can make the DIV fill the screen with standard CSS:
 
 Put this at the top of your page inside the HEAD element:
 
-```
+``` html
   <style type="text/css">
       html, body { margin: 0; }
       #chart {
@@ -195,7 +193,7 @@ them nice round end caps, do:
 Now we need to change the colors of each line itself. While we are at it, let's give
 the values names other than value0, value1, etc.  
 
-```
+``` javascript
   data: {
       type:'spline',
       colors: {
@@ -220,7 +218,7 @@ the lines look smoother.
 
 And finally lets hide the points
 
-```
+``` javascript
     //inside the 'generate' object
     point: {
         show: false

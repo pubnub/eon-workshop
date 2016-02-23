@@ -29,13 +29,11 @@
 <script type="text/javascript">
 
 var pubnub = PUBNUB.init({
-    ssl           : true,  // <- enable TLS Tunneling over TCP
-    publish_key   : "demo",
-    subscribe_key : "demo"
+    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
 });
 
 eon.chart({
-    channel: "josh_hello_world_5",
+    channel: "random5",
     generate: {
         bindto: '#chart',
         data: {
