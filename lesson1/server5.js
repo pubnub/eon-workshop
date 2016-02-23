@@ -8,8 +8,8 @@
 
 var pubnub = require("pubnub")({
     ssl           : true,  // <- enable TLS Tunneling over TCP
-    publish_key   : "demo",
-    subscribe_key : "demo"
+    publish_key   : "pub-c-5a5f3514-32a6-49a0-94d9-ea376729f959",
+    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
 });
 
 
@@ -23,7 +23,7 @@ function publish() {
 
     console.log("sending",message);
     pubnub.publish({
-        channel   : 'josh_hello_world_5',
+        channel   : 'random5',
         message   : message,
     });
 }
