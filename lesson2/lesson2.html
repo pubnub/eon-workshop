@@ -1,128 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <title>lesson 2</title>
-    <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
-    <style type="text/css">
-        html, body { margin: 0; padding:0 }
-        #chart {
-            position: absolute;
-            top:25%;
-            bottom:25%;
-            height: 50%;
-            left:0;
-            right:0;
-            display: flex;
-        }
-        #temp, #light, #pot {
-            flex: 1;
-            margin: 20px;
-            /* border: 1px solid blue; */
-        }
-    </style>
+  <meta charset='UTF-8'>
+  <title>lesson 2</title>
+  <script type='text/javascript' src='//pubnub.github.io/eon/v/eon/0.0.9/eon.js'></script>
+  <link type='text/css' rel='stylesheet' href='//pubnub.github.io/eon/v/eon/0.0.9/eon.css' />
+  <style type='text/css'>
+    * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+    html, body { margin: 0; padding:0 }
+    body {
+        font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Roboto Light', 'Segoe UI Web Light', 'Segoe UI Light', 'Segoe UI Web Regular', 'Segoe UI', Helvetica, Arial, sans-serif; 
+        margin: 1em;
+      }
+      h1 {
+      font-weight: 200;
+      }
+    #chart {
+      position: absolute;
+      top: 25%;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+    }
+    #temp, #light, #pot {
+      flex: 1;
+      margin: 20px;
+    }
+  </style>
 </head>
 <body>
 
+<header>
+  <h1>Sensor Data from Arduino</h1>
+</header>
+
 <div id="chart">
-    <div id="light"></div>
-    <div id="temp"></div>
-    <div id="pot"></div>
+  <div id="light"></div>
+  <div id="temp"></div>
+  <div id="pot"></div>
 </div>
 
-<script type="text/javascript">
-    var pubnub = PUBNUB.init({
-        ssl           : true,  // <- enable TLS Tunneling over TCP
-        publish_key   : "demo",
-        subscribe_key : "demo"
-    });
-    eon.chart({
-        channel: "fake_device",
-        generate: {
-            bindto: '#light',
-            axis: {
-                x: {
-                    type: 'timeseries',
-                    tick: {
-                        format: '%H:%m:%S'
-                    },
-                    label: {
-                        text: "Light over time"
-                    }
-                },
-                y: {
-                    label: {
-                        text: "Lumens",
-                        position: 'outer-middle'
-                    }
-                }
-            }
-        },
-        //history:true,
-        pubnub: pubnub,
-        limit: 30,
-        transform: function(m) {
-            return { eon: {
-                light: m.eon.light
-            }}
-        }
-    });
-    function FtoC(f) {
-        return (f-32)* (5/9);
-    }
-    eon.chart({
-        channel: "fake_device",
-        generate: {
-            bindto: '#temp',
-            axis: {
-                x: {
-                    type: 'timeseries',
-                    tick: {
-                        format: '%H:%m:%S'
-                    },
-                    label: {
-                        text: "Temperature over time",
-                    }
-                },
-                y: {
-                    label: {
-                        text: "Celsius",
-                        position: 'outer-middle'
-                    }
-                }
-            }
-        },
-        //history:true,
-        pubnub: pubnub,
-        limit: 30,
-        transform: function(m) {
-            return { eon: {
-                temp: FtoC(m.eon.temperature)
-            }}
-        }
-    });
+<script type='text/javascript'>
+  var pubnub = PUBNUB.init({
+    //publish_key   : 'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
+    subscribe_key : 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe'
+  });
 
-    eon.chart({
-        channel: "fake_device",
-        generate: {
-            bindto: '#pot',
-            data: {
-                type:'gauge'
-            },
-            gauge: {
-                min: -10,
-                max: 10,
-                units: 'position'
-            }
+  var channel = 'temperature-photoresistor';
+
+  eon.chart({
+    channel: channel,
+    generate: {
+      bindto: '#light',
+      data: {
+        type: 'line'
+      },
+      axis: {
+        x: {
+          type: 'timeseries',
+          tick: {
+            format: '%H:%m:%S',
+            fit: true
+          },
+          label: {
+            text: 'Light over time'
+          }
         },
-        pubnub: pubnub,
-        transform: function(m) {
-            return { eon: {
-                pot: m.eon.potentiometer
-            }}
+        y: {
+          label: {
+            text: 'Lumens',
+            position: 'outer-middle'
+          },
+          tick: {
+            format: function (d) {
+              var df = Number( d3.format('.2f')(d) );
+              return df;
+            }
+          }
         }
-    });
+      }
+    },
+    pubnub: pubnub,
+    limit: 30,
+    transform: function(m) {
+      return { eon: {
+        light: m.eon.light
+      }}
+    }
+  });
+
+  eon.chart({
+    channel: channel,
+    generate: {
+      bindto: '#temp',
+      data: {
+        type: 'line',
+        colors: {
+          temperature: 'deeppink'
+        }
+      },
+      axis: {
+        x: {
+          type: 'timeseries',
+          tick: {
+            format: '%H:%m:%S',
+            fit: true
+          },
+          label: {
+            text: 'Temperature over time',
+          }
+        },
+        y: {
+          label: {
+            text: 'Celsius',
+            position: 'outer-middle'
+          },
+          tick: {
+            format: function (d) {
+              var df = Number( d3.format('.2f')(d) );
+              return df;
+            }
+          }
+        }
+      }
+    },
+    pubnub: pubnub,
+    limit: 30,
+    transform: function(m) {
+      return { eon: {
+        temperature: m.eon.temperature
+      }}
+    }
+  });
+  eon.chart({
+    channel: 'potentiometer',
+    generate: {
+      bindto: '#pot',
+      data: {
+        type:'gauge'
+      },
+      gauge: {
+        label:{
+          format: function(value, ratio){
+            return value; //returning here the value, not in %
+          },
+        },
+        min: 0,
+        max: 1023
+      },
+      color: {
+        pattern: ['#FF0000', '#F6C600', '#60B044'],
+        threshold: {
+          values: [341, 682]
+        } 
+      }
+    },
+    pubnub: pubnub
+  });
 </script>
 </body>
 </html>
