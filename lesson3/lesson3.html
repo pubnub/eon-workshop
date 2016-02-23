@@ -23,8 +23,9 @@
 <script type="text/javascript">
     var pubnub = PUBNUB.init({
         ssl           : true,  // <- enable TLS Tunneling over TCP
-        publish_key   : "demo",
-        subscribe_key : "demo"
+        subscribe_key : 'sub-c-cc7e207a-d418-11e5-bcee-0619f8945a4f',
+        // publish_key   : "demo",
+        // subscribe_key : "demo"
     });
 
     var points = [
@@ -34,6 +35,7 @@
         {"latlng":[32,-99]}
     ];
     var count = -1;
+    /*
     setInterval(function(){
         count = count + 1;
         if(count >= points.length) count = 0;
@@ -43,7 +45,7 @@
             message: [ points[count] ]
         });
     }, 3000);
-
+    */
 
     L.RotatedMarker = L.Marker.extend({
         options: { angle: 0 },
@@ -58,13 +60,30 @@
         id: 'map',
         mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
         mb_id: 'ianjennings.l896mh2e',
-        channel: 'eon-map',
+        // channel: 'eon-map',
+        channel : "iss-pubnub",
         pubnub: pubnub,
-        rotate: true,
+        //rotate: true,
+
+        //iss
+        transform: function(m) {
+          return {
+            iss: {
+              latlng: [m.latitude, m.longitude],
+              data: m
+            }
+          }
+        },
+        //iss
         message: function (data) {
+          map.setView(data.iss.latlng,3);
+          polyline.addLatLng(data.iss.latlng);
+          //map.setView(ll, 8);
             //map.setView(data[0].latlng, 8); //9 is the zoom level
             //polyline.addLatLng(data[0].latlng);
+            //polyline.addLatLng(ll);
         },
+        /*
         marker: function (latlng, data) {
             var marker = new L.RotatedMarker(latlng, {
                 icon: L.icon({
@@ -73,22 +92,11 @@
                 })
             });
             return marker;
-        }
+        }*/
     });
     polyline.addTo(map);
 
-
-    var circle_options = {
-        color: '#fff',      // Stroke color
-        opacity: 1,         // Stroke opacity
-        weight: 10,         // Stroke weight
-        fillColor: '#000',  // Fill color
-        fillOpacity: 0.6    // Fill opacity
-    };
-
     //map.setView([38.89399, -77.03659], 17);
-
-    //var circle_one = L.circle([38.89415, -77.03738], 20, circle_options).addTo(map);
     //polyline = L.polyline([[31,-99],[31,-100],[32,-100]], {color:'red', fillColor:'red'}).addTo(map);
     /*
     points.map(function(l) {
