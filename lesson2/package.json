@@ -1,0 +1,20 @@
+{
+  "name": "johnnyfive-eon",
+  "version": "1.0.0",
+  "description": "EON graph and chart demo with sensor data from Arduino using Johnny-Five",
+  "main": "lesson",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "johnny-five",
+    "eon",
+    "pubnub"
+  ],
+  "author": "Tomomi Imura",
+  "license": "MIT",
+  "dependencies": {
+    "johnny-five": "^0.9.24",
+    "pubnub": "^3.10.2"
+  }
+}
