@@ -277,10 +277,6 @@ This final code has more customizations (e.g. changing the default colors).
   });
 ```
 
-
-Now, you can try using real data by switching to the PubNub stream `real_device`.  Then come up
-to the front of the class and try moving the real sensors to see the values change on your computer.
-
 ![Arduino circuit](images/circuit.jpg)
 
 That's the end of lesson 2.
