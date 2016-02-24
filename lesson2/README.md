@@ -15,8 +15,8 @@ Create a new HTML file with the same boiler plate as before, but with a few addi
 <head>
   <meta charset="UTF-8">
   <title>lesson 2</title>
-  <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-  <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+  <script type="text/javascript" src="http://pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
   <style type="text/css">
     html, body { margin: 0; padding:0 }
     #chart {
