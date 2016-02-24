@@ -43,6 +43,7 @@ Now let's create our own stream containing a set of four geographical points in 
 
 
 ``` javascript
+
     var points = [
         {"latlng":[31,-99]},
         {"latlng":[31,-100]},
@@ -77,8 +78,15 @@ Now we can build a map. Instead of using `eon.chart` like before, call `eon.map`
     })
 ```
 
+## Unique Channel Names
+
+We just created a new problem. Since everyone in this workshop will be publishing data
+at the same time. A single PubNub channel can handle this. There won't be any locking or performance
+problems, however you may get the same points over and over or out of order.  To fix this you
+must make up your own unique channel name to publish to, like `map-channel-my-name-goes-here`.
 
 That's it.  Now your webpage should look like this:
+
 
 ![plain map](images/plain_map.png)
 
