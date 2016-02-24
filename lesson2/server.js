@@ -73,9 +73,7 @@ five.Board().on('ready', function() {
     }};
     pubnub.publish({
       channel: 'potentiometer',
-      message: { eon: {
-        'potentiometer': this.value
-      }}
+      message: data
     });
   });
 });
