@@ -9,7 +9,7 @@
     * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
     html, body { margin: 0; padding:0 }
     body {
-        font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Roboto Light', 'Segoe UI Web Light', 'Segoe UI Light', 'Segoe UI Web Regular', 'Segoe UI', Helvetica, Arial, sans-serif; 
+        font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Roboto Light', 'Segoe UI Web Light', 'Segoe UI Light', 'Segoe UI Web Regular', 'Segoe UI', Helvetica, Arial, sans-serif;
         margin: 1em;
       }
       h1 {
@@ -43,11 +43,10 @@
 
 <script type='text/javascript'>
   var pubnub = PUBNUB.init({
-    //publish_key   : 'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
-    subscribe_key : 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe'
+    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
   });
 
-  var channel = 'temperature-photoresistor';
+  var channel = 'fake-temperature-photoresistor';
 
   eon.chart({
     channel: channel,
@@ -134,7 +133,7 @@
     }
   });
   eon.chart({
-    channel: 'potentiometer',
+    channel: 'fake-potentiometer',
     generate: {
       bindto: '#pot',
       data: {
@@ -153,7 +152,7 @@
         pattern: ['#FF0000', '#F6C600', '#60B044'],
         threshold: {
           values: [341, 682]
-        } 
+        }
       }
     },
     pubnub: pubnub

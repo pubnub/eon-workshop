@@ -1,9 +1,9 @@
 
-/* 
+/*
  *  PubNub EON Demo with Arduino
  *  Displaying the data sent by Arduino with DS18B20 temperature, photoresistor sensor, and a potentiometer separately, using Johnny-Five
  *  https://github.com/pubnub/johnnyfive-eon
- * 
+ *
  *  Tomomi Imura @girlie_mac
  *  License: MIT
  */
@@ -11,8 +11,8 @@
 
 // Init PubNub - Please use your own keys. Get them from https://admin.pubnub.com
 var pubnub = require('pubnub')({
-  publish_key: 'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
-  subscribe_key: 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe'
+  publish_key   : "pub-c-5a5f3514-32a6-49a0-94d9-ea376729f959",
+  subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"  
 });
 
 var temp = 0;
@@ -30,7 +30,7 @@ function publish() {
   });
 }
 
-// Johnny-Five 
+// Johnny-Five
 // Using a temperature sensor, type DS18B20 requires OneWire support using the ConfigurableFirmata
 
 var five = require('johnny-five');
@@ -79,6 +79,3 @@ five.Board().on('ready', function() {
     });
   });
 });
-
-
-

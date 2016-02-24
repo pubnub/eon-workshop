@@ -40,7 +40,7 @@ Create a new HTML file with the same boiler plate as before, but with a few addi
 </div>
 <script type="text/javascript">
   var pubnub = PUBNUB.init({
-      subscribe_key : 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe'
+      subscribe_key : 'sub-c-d784e128-da7d-11e5-9511-0619f8945a4f'
   });
 </script>
 </body>
@@ -58,11 +58,12 @@ though they don't have charts yet. It should look like this:
 
 
 Now add the first chart for the light sensor. This will be a simple line chart
-like you created in the previous lesson, except, you will be using an actual data coming from Arduino:
+like you created in the previous lesson. Eventually you will be using an actual data coming from Arduino but to start
+with use the channel `fake-temperature-photoresistor`.
 
 ``` javascript
   eon.chart({
-    channel: 'temperature-photoresistor',
+    channel: 'fake-temperature-photoresistor',
     generate: {
       bindto: '#light',
     },
@@ -74,7 +75,9 @@ It should look like this:
 
 ![chart 1](images/chart1.png)
 
-This code will work but something is wrong. All data points coming from the channel, `temperature-photoresistor` are in the chart. That's the problem. We only want the light data. To fix this we need to modify
+This code will work but something is wrong.
+*All* of the data points coming from the channel, `fake-temperature-photoresistor` are in the chart.
+That's the problem. We only want the light data. To fix this we need to modify
 the points as they come in.  We can do that with a `transform` function. The following
 function creates a new data point containing just the part we want.
 
@@ -100,7 +103,7 @@ For the temp sensor we want the same thing, a line chart showing the values over
 
 ``` javascript
   eon.chart({
-    channel: 'temperature-photoresistor',
+    channel: 'fake-temperature-photoresistor',
     generate: {
       bindto: '#temp',
     },
@@ -120,11 +123,11 @@ The potentiometer is different than the other sensors. We don't care about it's
 value over time. We only want the *current* value. A gauge chart is a better way to
 show just the current value.  
 
-Create another chart, but this time set the data type to `gauge`. 
+Create another chart, but this time set the data type to `gauge`.
 
 ``` javascript
   eon.chart({
-    channel: 'potentiometer',
+    channel: 'fake-potentiometer',
     generate: {
       bindto: '#pot',
       data: {
@@ -135,8 +138,9 @@ Create another chart, but this time set the data type to `gauge`.
   });
 ```
 
-This will work but now we have another problem. The gauge assumes that all of the values are between 0 and 1023.
-However, our sensor data is from -10 to 10. We could use another conversion function like we did for the
+This will work but now we have another problem. The gauge assumes that
+all of the values are between 0 and 100.
+However, our sensor data is from 0 to 1023. We could use another conversion function like we did for the
 temperature, but an easier way is to set the max and min of the gauge directly and let EON
 handle the conversion for us.
 
@@ -156,9 +160,11 @@ handle the conversion for us.
 
 That's it. Now all of our charts work.  Using what you learned in the previous lesson you can
 set the Y labels to show the units and the X labels to show nicer names.  Try doing it yourself
-before you look at the answer below.  See if you can make it look like this. 
+before you look at the answer below.  See if you can make it look like this.
 
 This final code has more customizations (e.g. changing the default colors).
+
+
 
 
 ![chart 2](images/final_chart.png)
@@ -208,7 +214,7 @@ This final code has more customizations (e.g. changing the default colors).
   });
 
   eon.chart({
-    channel: 'temperature-photoresistor',
+    channel: 'fake-temperature-photoresistor',
     generate: {
       bindto: '#temp',
       data: {
@@ -251,7 +257,7 @@ This final code has more customizations (e.g. changing the default colors).
     }
   });
   eon.chart({
-    channel: 'potentiometer',
+    channel: 'fake-potentiometer',
     generate: {
       bindto: '#pot',
       data: {
@@ -270,12 +276,31 @@ This final code has more customizations (e.g. changing the default colors).
         pattern: ['#FF0000', '#F6C600', '#60B044'],
         threshold: {
           values: [341, 682]
-        } 
+        }
       }
     },
     pubnub: pubnub
   });
 ```
+
+## Real Data
+
+
+Now let's switch to real data. We set up a real Arduino with sensors
+at the front of the room. You can connect to them by removing the `fake-`
+prefix of the channels.  Your new channels will look like:
+
+``` javascript
+channel:'temperature-photoresistor',
+...
+channel:'potentiometer'
+```
+
+
+
+
+
+
 
 ![Arduino circuit](images/circuit.jpg)
 
