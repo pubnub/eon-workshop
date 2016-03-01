@@ -30,8 +30,8 @@ Start with basic HTML page with a PubNub connection like this:
     <script type="text/javascript">
         var pubnub = PUBNUB.init({
             ssl           : true,  // <- enable TLS Tunneling over TCP
-            publish_key   : "demo",
-            subscribe_key : "demo"
+            publish_key   : "pub-c-5a5f3514-32a6-49a0-94d9-ea376729f959",
+            subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
         });
     </script>
     </body>
@@ -55,7 +55,7 @@ Now let's create our own stream containing a set of four geographical points in 
         count = count + 1;
         if(count >= points.length) count = 0;
         console.log("publishing", points[count])
-        PUBNUB.publish({
+        pubnub.publish({
             channel:  'eon-map',
             message: [ points[count] ]
         });
