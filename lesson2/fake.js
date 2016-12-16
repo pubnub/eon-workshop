@@ -1,8 +1,9 @@
 
-var pubnub = require("pubnub")({
+var PubNub = require("pubnub");
+var pubnub = new PubNub({
     ssl           : true,  // <- enable TLS Tunneling over TCP
-    publish_key   : "pub-c-5a5f3514-32a6-49a0-94d9-ea376729f959",
-    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
+    publishKey   : "pub-c-5a5f3514-32a6-49a0-94d9-ea376729f959",
+    subscribeKey : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
 });
 
 

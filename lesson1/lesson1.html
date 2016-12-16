@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Exercise 1</title>
-    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
     <style type="text/css">
         html, body { margin: 0; }
         #chart {
@@ -36,12 +36,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div id="chart"></div>
 <script type="text/javascript">
 
-var pubnub = PUBNUB.init({
-    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
+var pubnub = new PubNub({
+    subscribeKey : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
 });
 
 eon.chart({
-    channel: "random5",
+    channels: ["random5"],
     generate: {
         bindto: '#chart',
         data: {

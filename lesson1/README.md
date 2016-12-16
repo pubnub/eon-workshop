@@ -8,8 +8,8 @@ file and add this to it.
 ``` html
 <html>
 <head>
-<script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-<link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+<script type="text/javascript" src="//pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+<link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
 </head>
 <body>
 </body>
@@ -29,9 +29,8 @@ Then create a new script section with this code
 
 ``` html
 <script type="text/javascript">
-var pubnub = PUBNUB.init({
-    ssl           : true,  // <- enable TLS Tunneling over TCP
-    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
+var pubnub = new PubNub({
+    subscribeKey : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
 });
 </script>
 ```
@@ -45,7 +44,7 @@ Now we can setup a simple chart like this:
 ``` javascript
 //after the pubnub
 eon.chart({
-    channel: "random1",
+    channels: ["random1"],
     generate: {
         bindto: '#chart',
     },
@@ -66,7 +65,7 @@ again lose the old data. To fix this lets use history.  Set the history option t
 
 ``` javascript
 eon.chart({
-    channel: "random1",
+    channels: ["random1"],
     generate: {
         bindto: '#chart',
     },
@@ -119,7 +118,7 @@ both of these changes by creating an `axis` parameter like this.
 
 ``` javascript
 eon.chart({
-    channel: "random5",
+    channels: ["random5"],
     generate: {
         bindto: '#chart',
         axis: {

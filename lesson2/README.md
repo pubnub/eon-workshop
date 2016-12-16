@@ -15,8 +15,8 @@ Create a new HTML file with the same boiler plate as before, but with a few addi
 <head>
   <meta charset="UTF-8">
   <title>lesson 2</title>
-  <script type="text/javascript" src="http://pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-  <link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+  <script type="text/javascript" src="http://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
   <style type="text/css">
     html, body { margin: 0; padding:0 }
     #chart {
@@ -39,8 +39,8 @@ Create a new HTML file with the same boiler plate as before, but with a few addi
   <div id="pot"></div>
 </div>
 <script type="text/javascript">
-  var pubnub = PUBNUB.init({
-      subscribe_key : 'sub-c-d784e128-da7d-11e5-9511-0619f8945a4f'
+  var pubnub = new PubNub({
+      subscribeKey : 'sub-c-d784e128-da7d-11e5-9511-0619f8945a4f'
   });
 </script>
 </body>
@@ -63,7 +63,7 @@ with use the channel `fake-temperature-photoresistor`.
 
 ``` javascript
   eon.chart({
-    channel: 'fake-temperature-photoresistor',
+    channels: ['fake-temperature-photoresistor'],
     generate: {
       bindto: '#light',
     },
@@ -103,7 +103,7 @@ For the temp sensor we want the same thing, a line chart showing the values over
 
 ``` javascript
   eon.chart({
-    channel: 'fake-temperature-photoresistor',
+    channels: ['fake-temperature-photoresistor'],
     generate: {
       bindto: '#temp',
     },
@@ -127,7 +127,7 @@ Create another chart, but this time set the data type to `gauge`.
 
 ``` javascript
   eon.chart({
-    channel: 'fake-potentiometer',
+    channels: ['fake-potentiometer'],
     generate: {
       bindto: '#pot',
       data: {
@@ -173,7 +173,7 @@ This final code has more customizations (e.g. changing the default colors).
 
 ``` javascript
   eon.chart({
-    channel: 'temperature-photoresistor',
+    channels: ['temperature-photoresistor'],
     generate: {
       bindto: '#light',
       data: {
@@ -214,7 +214,7 @@ This final code has more customizations (e.g. changing the default colors).
   });
 
   eon.chart({
-    channel: 'fake-temperature-photoresistor',
+    channels: ['fake-temperature-photoresistor'],
     generate: {
       bindto: '#temp',
       data: {
@@ -257,7 +257,7 @@ This final code has more customizations (e.g. changing the default colors).
     }
   });
   eon.chart({
-    channel: 'fake-potentiometer',
+    channels: ['fake-potentiometer'],
     generate: {
       bindto: '#pot',
       data: {
@@ -291,9 +291,9 @@ at the front of the room. You can connect to them by removing the `fake-`
 prefix of the channels.  Your new channels will look like:
 
 ``` javascript
-channel:'temperature-photoresistor',
+channels:['temperature-photoresistor'],
 ...
-channel:'potentiometer'
+channels:['potentiometer']
 ```
 
 

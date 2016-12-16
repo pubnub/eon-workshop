@@ -3,8 +3,8 @@
 <head>
   <meta charset='UTF-8'>
   <title>lesson 2</title>
-  <script type='text/javascript' src='//pubnub.github.io/eon/v/eon/0.0.9/eon.js'></script>
-  <link type='text/css' rel='stylesheet' href='//pubnub.github.io/eon/v/eon/0.0.9/eon.css' />
+  <script type='text/javascript' src='//pubnub.github.io/eon/v/eon/1.0.0/eon.js'></script>
+  <link type='text/css' rel='stylesheet' href='//pubnub.github.io/eon/v/eon/1.0.0/eon.css' />
   <style type='text/css'>
     * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
     html, body { margin: 0; padding:0 }
@@ -50,14 +50,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
 <script type='text/javascript'>
-  var pubnub = PUBNUB.init({
-    subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
+  var pubnub = new PubNub({
+    subscribeKey : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
   });
 
   var channel = 'fake-temperature-photoresistor';
 
   eon.chart({
-    channel: channel,
+    channels: [channel],
     generate: {
       bindto: '#light',
       data: {
@@ -98,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   });
 
   eon.chart({
-    channel: channel,
+    channels: [channel],
     generate: {
       bindto: '#temp',
       data: {
@@ -141,7 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   });
   eon.chart({
-    channel: 'fake-potentiometer',
+    channels: ['fake-potentiometer'],
     generate: {
       bindto: '#pot',
       data: {
@@ -151,7 +151,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         label:{
           format: function(value, ratio){
             return value; //returning here the value, not in %
-          },
+          }
         },
         min: 0,
         max: 1023
