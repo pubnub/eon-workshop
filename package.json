@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pubnub": "^3.9.2"
+    "pubnub": "^4.3.2"
   }
 }
