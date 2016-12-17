@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Exercise 3:2</title>
-    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
     <style type="text/css">
         html, body { margin: 0; }
         #map {
@@ -22,9 +22,9 @@
 <div id="map"></div>
 <script type="text/javascript">
 
-    var pubnub = PUBNUB.init({
+    var pubnub = new PubNub({
         ssl           : true,  // <- enable TLS Tunneling over TCP
-        subscribe_key: 'sub-c-bd9ab0d6-6e02-11e5-8d3b-0619f8945a4f',
+        subscribeKey: 'sub-c-bd9ab0d6-6e02-11e5-8d3b-0619f8945a4f',
     });
 
     L.RotatedMarker = L.Marker.extend({
@@ -37,9 +37,9 @@
 
     var map = eon.map({
         id: 'map',
-        mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
-        mb_id: 'ianjennings.lec06po7',
-        channel: 'sfo-flight-data',
+        mbToken: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+        mbId: 'ianjennings.lec06po7',
+        channels: ['sfo-flight-data'],
         pubnub: pubnub,
         rotate: true,
         history:true,

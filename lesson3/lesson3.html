@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Exercise 3:1</title>
-    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+    <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
     <style type="text/css">
         html, body { margin: 0; }
         #map {
@@ -30,9 +30,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div id="map"></div>
 <script type="text/javascript">
-    var pubnub = PUBNUB.init({
+    var pubnub = new PubNub({
         ssl           : true,  // <- enable TLS Tunneling over TCP
-        subscribe_key : 'sub-c-cc7e207a-d418-11e5-bcee-0619f8945a4f',
+        subscribeKey : 'sub-c-cc7e207a-d418-11e5-bcee-0619f8945a4f',
         // publish_key   : "demo",
         // subscribe_key : "demo"
     });
@@ -67,9 +67,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var polyline = L.polyline([], {color:'red', fillColor:'red'});
     var map = eon.map({
         id: 'map',
-        mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
-        mb_id: 'ianjennings.l896mh2e',
-        channel : "iss-pubnub",
+        mbToken: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+        mbId: 'ianjennings.l896mh2e',
+        channels : ["iss-pubnub"],
         pubnub: pubnub,
 
         //iss
@@ -85,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         message: function (data) {
           map.setView(data.iss.latlng,3);
           polyline.addLatLng(data.iss.latlng);
-        },
+        }
     });
     polyline.addTo(map);
 </script>

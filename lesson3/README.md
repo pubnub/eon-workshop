@@ -11,8 +11,8 @@ Start with basic HTML page with a PubNub connection like this:
     <head>
         <meta charset="UTF-8">
         <title>Exercise 1</title>
-        <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
-        <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
+        <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+        <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
         <style type="text/css">
             html, body { margin: 0; }
             #map {
@@ -28,10 +28,10 @@ Start with basic HTML page with a PubNub connection like this:
     <body>
     <div id="map"></div>
     <script type="text/javascript">
-        var pubnub = PUBNUB.init({
+        var pubnub = new PubNub({
             ssl           : true,  // <- enable TLS Tunneling over TCP
-            publish_key   : "pub-c-5a5f3514-32a6-49a0-94d9-ea376729f959",
-            subscribe_key : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
+            publishKey   : "pub-c-5a5f3514-32a6-49a0-94d9-ea376729f959",
+            subscribeKey : "sub-c-d784e128-da7d-11e5-9511-0619f8945a4f"
         });
     </script>
     </body>
@@ -70,9 +70,9 @@ Now we can build a map. Instead of using `eon.chart` like before, call `eon.map`
 ``` javascript
     var map = eon.map({
       id: 'map',
-      mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
-      mb_id: 'ianjennings.l896mh2e',
-      channel: 'eon-map',
+      mbToken: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+      mbId: 'ianjennings.l896mh2e',
+      channels: ['eon-map'],
       pubnub: pubnub,
       rotate: true,
     })
@@ -90,7 +90,8 @@ That's it.  Now your webpage should look like this:
 
 ![plain map](images/plain_map.png)
 
-Note that we added two special fields to the config: `mb_token` and `mb_id`. These are not PubNub keys, but
+Note that we added two special fields to the config: `mbToken` and `mbId`. These are not PubNub 
+keys, but
 rather MapBox tokens. For this workshop you can use these tokens created by our map master Ian, but for your own projects you'll need to sign up for a free account [at MapBox](https://www.mapbox.com).
 
 
@@ -109,9 +110,9 @@ data point and a zoom level. For this prototype `8` is a reasonable zoom level.
 ``` javascript
     var map = eon.map({
         id: 'map',
-        mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
-        mb_id: 'ianjennings.l896mh2e',
-        channel: 'eon-map',
+        mbToken: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+        mbId: 'ianjennings.l896mh2e',
+        channels: ['eon-map'],
         pubnub: pubnub,
         rotate: true,
         message: function (data) {
@@ -132,23 +133,23 @@ that we can subscribe to with a different key.  To see this change the PubNub ke
 and the channel to
 
 ``` javascript
-var pubnub = PUBNUB.init({
+var pubnub = new PubNub({
     ssl           : true,  // <- enable TLS Tunneling over TCP
-    subscribe_key : 'sub-c-cc7e207a-d418-11e5-bcee-0619f8945a4f',
+    subscribeKey : 'sub-c-cc7e207a-d418-11e5-bcee-0619f8945a4f',
 });
 
 ...
 
 var map = eon.map({
     id: 'map',
-    mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
-    mb_id: 'ianjennings.l896mh2e',
-    channel : "iss-pubnub",
+    mbToken: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+    mbId: 'ianjennings.l896mh2e',
+    channels : ["iss-pubnub"],
     pubnub: pubnub,
 });
 ```
 
-Also remove the `publish_key` since we won't be using it anymore.
+Also remove the `publishKey` since we won't be using it anymore.
 
 This stream is in a slightly different format than EON is expecting,
 so again we need a `transform` function.
@@ -250,9 +251,9 @@ this for us so we don't need to worry about syncing up markers to data points at
 To access the real flight data, change the publish and subscribe keys to the ones for the new stream.
 
 ``` javascript
-var pubnub = PUBNUB.init({
+var pubnub = new PubNub({
     ssl           : true,  // <- enable TLS Tunneling over TCP
-    subscribe_key: 'sub-c-bd9ab0d6-6e02-11e5-8d3b-0619f8945a4f',
+    subscribeKey: 'sub-c-bd9ab0d6-6e02-11e5-8d3b-0619f8945a4f',
 });
 ```
 
@@ -261,9 +262,9 @@ And change the channel to `sfo-flight-data` and update the `map_id`.
 ``` javascript
 var map = eon.map({
     id: 'map',
-    mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
-    mb_id: 'ianjennings.lec06po7',
-    channel: 'sfo-flight-data',
+    mbToken: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+    mbId: 'ianjennings.lec06po7',
+    channels: ['sfo-flight-data'],
     ...
   });
 ```
